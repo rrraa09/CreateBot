@@ -7,7 +7,7 @@ class ConvertionException(Exception):
 
 class CryptoConverter:
     @staticmethod
-    def convert(quote: str, base: str, amount: int):
+    def get_price(quote: str, base: str, amount: int):
         if quote == base:
             raise ConvertionException(f'Невозможно перевести одинаковые валюты {base}.')
 
@@ -26,6 +26,6 @@ class CryptoConverter:
         except ValueError:
             raise ConvertionException(f'Не удалось обработать количество {amount}')
 
-        get_price = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
         total_base = json.loads(get_price.content)[keys[base]]
         return total_base
