@@ -10,16 +10,14 @@ class CryptoConverter:
     def get_price(base: str, quote: str, amount: int):
         if quote == base:
             raise ConvertionException(f'Невозможно перевести одинаковые валюты {base}.')
-
-        try:
-            quote_ticker = keys[quote]
-        except KeyError:
-            raise ConvertionException(f'Не удалось обработать валюту {quote}')
-
         try:
             base_ticker = keys[base]
         except KeyError:
             raise ConvertionException(f'Не удалось обработать валюту {base}')
+        try:
+            quote_ticker = keys[quote]
+        except KeyError:
+            raise ConvertionException(f'Не удалось обработать валюту {quote}')
 
         try:
             amount = float(amount)
